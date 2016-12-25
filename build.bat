@@ -1,20 +1,22 @@
 @echo off
 
-IF NOT EXIST ..\engine\build mkdir ..\engine\build
-pushd ..\engine\build
+IF NOT EXIST build mkdir build
+pushd build
 
-set MAIN_PATH=..\..\Engine\code\engine.c
+set MAIN_PATH=..\code\engine.c
 set LIBRARYPATH=W:\lib\SDL2-2.0.5\lib\x64
 set LIBRARIES=SDL2.lib SDL2main.lib
 set INCLUDE=W:\lib\SDL2-2.0.5\include
 
-set CompilerFlags=-FC -Zi -nologo
+cl  /nologo ^
+    /I%INCLUDE% ^
+    /FC ^
+    /Zi ^
+    %MAIN_PATH% ^
+    /link ^ 
+    /LIBPATH:%LIBRARYPATH% ^
+    %LIBRARIES% ^
+    /SUBSYSTEM:CONSOLE
 
-cl %CompilerFlags% ^ 
-	%MAIN_PATH% ^
-	-I%INCLUDE% ^
-	-link %LIBRARIES% ^
-	-LIBPATH:%LIBRARYPATH% ^
-	-SUBSYSTEM:CONSOLE
-		
 popd
+

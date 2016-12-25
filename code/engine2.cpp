@@ -1,5 +1,5 @@
 #include <SDL.h>
-#include <Windows.h>
+#include <Windows>
 #include <stdio.h>
 
 
