@@ -1,9 +1,8 @@
 #include <SDL.h>
-#include <Windows.h>
 #include <stdio.h>
 
 
- const int SCREEN_WIDTH = 640;
+const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
 // Start SDL and create window
@@ -85,7 +84,7 @@ void close()
 
 int main (int argc, char* args[])
 {
-// Start up SDL and create window
+    // Start up SDL and create window
     if(!init())
     {
         printf("Failed to initialize\n");
@@ -99,14 +98,31 @@ int main (int argc, char* args[])
         }
         else
         {
-            // Apply the image
-            SDL_BlitSurface(gHelloWorld, NULL, gScreenSurface, NULL);
+            // Main loop flag
+            bool quit = false;
             
-            // Update the surface
-            SDL_UpdateWindowSurface(gWindow);
+            //Event handler
+            SDL_Event e;
             
-            //Wait 2 seconds
-            SDL_Delay(2000);
+            // While application is running
+            while( !quit)
+            {
+                // Handle events on the queue
+                while (SDL_PollEvent(&e) != 0)
+                {
+                    // User requests quit
+                    if( e.type == SDL_QUIT)
+                    {
+                        quit = true;
+                    }
+                }
+                
+                // Apply the image
+                SDL_BlitSurface(gXOut, NULL, gScreenSurface, NULL);
+                
+                // Update the surface
+                SDL_UpdateWindowSurface(gWindow);
+            }
         }
     }
     
