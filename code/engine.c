@@ -1,4 +1,4 @@
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <stdio.h>
 
 
@@ -17,10 +17,10 @@ enum KeyPressSurfaces
 };
 
 // Start SDL and create window
-bool init();
+int init();
 
 // loads media
-bool loadMedia();
+int loadMedia();
 
 //Free media and shutdown SDL
 void close();
@@ -44,25 +44,25 @@ SDL_Surface* gCurrentSurface = NULL;
 SDL_Surface* gHelloWorld = NULL;
 
 
-bool init()
+int init()
 {
     // Initialization Flag
-    bool success = true;
+    int success = 1;
     
     // Initialize SDL
     if(SDL_Init(SDL_INIT_VIDEO) < 0 )
     {
         printf("SDL could not be Initialized! SDL_ERROR: %s\n", SDL_GetError());
-        success = false;
+        success = 0;
     }
     else
     {
         //Create Window
-        gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,  /SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+        gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,  SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
         if(gWindow == NULL)
         {
             printf( "Window Could not be created! SDL_Error: %s\n", SDL_GetError());
-            success = false;
+            success = 0;
         }
         else
         {
@@ -70,7 +70,7 @@ bool init()
             gScreenSurface = SDL_GetWindowSurface(gWindow);
         }
     }
-    return sucess;
+    return success;
 }
 
 SDL_Surface* loadSurface(char path[])
@@ -86,17 +86,17 @@ SDL_Surface* loadSurface(char path[])
 }
 
 
-bool loadMedia()
+int loadMedia()
 {
     // Loading success flag
-    bool success = true;
+    int success = 1;
     
     // Load default surface
     gKeyPressSurfaces[KEY_PRESS_SURFACE_DEFAULT] = loadSurface("04_keypresses/press.bmp");
     if(gKeyPressSurfaces[KEY_PRESS_SURFACE_DEFAULT] == NULL)
     {
         printf("Failed to load the default image\n");
-        success = false;
+        success = 0;
     }
     // continues here
 }
