@@ -132,7 +132,7 @@ int main (int argc, char* args[])
         else
         {
             // Main loop flag
-            bool quit = false;
+            int quit = 0;
             
             //Event handler
             SDL_Event e;
@@ -146,7 +146,7 @@ int main (int argc, char* args[])
                     // User requests quit
                     if( e.type == SDL_QUIT)
                     {
-                        quit = true;
+                        quit = 1;
                     }
                 }
                 
